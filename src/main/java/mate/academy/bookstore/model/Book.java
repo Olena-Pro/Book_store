@@ -28,5 +28,5 @@ public class Book {
     private BigDecimal price;
 
     private String description;
-    private String coveIrmage;
+    private String coverImage;
 }
