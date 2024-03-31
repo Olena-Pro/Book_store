@@ -1,5 +1,8 @@
 package mate.academy.bookstore.repository.book;
 
+import static mate.academy.bookstore.repository.book.spec.AuthorSpecificationProvider.COLUMN_AUTHOR;
+import static mate.academy.bookstore.repository.book.spec.TitleSpecificationProvider.COLUMN_TITLE;
+
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.BookSearchParameters;
 import mate.academy.bookstore.model.Book;
@@ -18,12 +21,12 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
         Specification<Book> spec = Specification.where(null);
         if (searchParameters.authors() != null && searchParameters.authors().length > 0) {
             spec = spec.and(bookSpecificationProviderManager
-                    .getSpecificationProvider("author")
+                    .getSpecificationProvider(COLUMN_AUTHOR)
                     .getSpecification(searchParameters.authors()));
         }
         if (searchParameters.titles() != null && searchParameters.titles().length > 0) {
             spec = spec.and(bookSpecificationProviderManager
-                    .getSpecificationProvider("title")
+                    .getSpecificationProvider(COLUMN_TITLE)
                     .getSpecification(searchParameters.titles()));
         }
         return spec;
