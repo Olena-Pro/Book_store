@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import mate.academy.bookstore.dto.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    private static final int REGISTRATION_FAILED = 402;
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -48,10 +46,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(RegistrationException.class)
-    public ResponseEntity<Response<String>> handlerException(RegistrationException e) {
-        Response<String> response = new Response<>(e.getMessage());
-        response.setStatus(REGISTRATION_FAILED);
-        response.setBody(e.getMessage());
-        return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handlerException(RegistrationException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
