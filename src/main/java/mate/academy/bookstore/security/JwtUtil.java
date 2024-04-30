@@ -1,7 +1,6 @@
 package mate.academy.bookstore.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtil {
 
-    private Key secret;
+    private final Key secret;
     @Value("${jwt.expiration}")
     private Long expiration;
 
@@ -34,11 +33,11 @@ public class JwtUtil {
 
     public boolean isValidToken(String token) {
         try {
-            Jws<Claims> claimsJws = Jwts.parserBuilder()
+            Jwts.parserBuilder()
                     .setSigningKey(secret)
                     .build()
                     .parseClaimsJws(token);
-            return !claimsJws.getBody().getExpiration().before(new Date());
+            return !getClaimsFromToken(token, Claims::getExpiration).before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("Expired or invalid token");
         }
