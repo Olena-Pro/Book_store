@@ -17,3 +17,9 @@ databaseChangeLog:
       file: /db/changelog/changes/08-set-roles-for-users.yaml
   - include:
       file: /db/changelog/changes/09-set-securityPassword.yaml
+  - include:
+      file: /db/changelog/changes/10-create-category-table.yaml
+  - include:
+      file: /db/changelog/changes/11-create-books-categouries-table.yaml
+  - include:
+      file: /db/changelog/changes/12-add-fks-in-books_categories-table.yaml
