@@ -23,13 +23,10 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name",
-            nullable = false)
+    @Column(nullable = false)
     private String name;
-    @Column(name = "description")
     private String description;
-    @Column(name = "is_deleted",
-            nullable = false)
+    @Column(nullable = false)
     private boolean isDeleted;
 
     public Category(Long id) {
