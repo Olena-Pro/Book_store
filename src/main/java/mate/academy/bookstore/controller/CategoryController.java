@@ -3,6 +3,7 @@ package mate.academy.bookstore.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.dto.book.BookWithoutCategoryDto;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Category menegment", description = "Endpoints for managing categories")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
@@ -38,7 +39,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a category by id", description = "Get a category by id")
-    public CategoryDto getCategoryById(@PathVariable Long id) {
+    public CategoryDto getCategoryById(@PathVariable @Positive Long id) {
         return categoryService.getById(id);
     }
 
@@ -54,22 +55,22 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a category by id", description = "Delete a category by id")
-    public void deleteCategory(@PathVariable Long id) {
+    public void deleteCategory(@PathVariable @Positive Long id) {
         categoryService.deleteById(id);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update category", description = "Update a category by id")
-    public CategoryDto updateCategory(@PathVariable Long id,
-                                      @RequestBody CategoryRequestDto requestDto) {
+    public CategoryDto updateCategory(@PathVariable @Positive Long id,
+                                      @RequestBody @Valid CategoryRequestDto requestDto) {
         return categoryService.update(id, requestDto);
     }
 
     @GetMapping("/{id}/books")
     @Operation(summary = "Get books by category",
             description = "Get a list of books by category id")
-    public List<BookWithoutCategoryDto> getBooksByCategoryId(@PathVariable Long id) {
+    public List<BookWithoutCategoryDto> getBooksByCategoryId(@PathVariable @Positive Long id) {
         return bookService.findAllByCategoryId(id);
     }
 }

@@ -1,8 +1,21 @@
 databaseChangeLog:
   - changeSet:
-      id: add-forign-keys-in-books-categories
+      id: create-books_categories-table
       author: Olena
       changes:
+        - createTable:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: books_categories
             baseColumnNames:

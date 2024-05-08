@@ -20,6 +20,4 @@ databaseChangeLog:
   - include:
       file: /db/changelog/changes/10-create-category-table.yaml
   - include:
-      file: /db/changelog/changes/11-create-books-categouries-table.yaml
-  - include:
-      file: /db/changelog/changes/12-add-fks-in-books_categories-table.yaml
+      file: /db/changelog/changes/11-create-books-categories-table.yaml

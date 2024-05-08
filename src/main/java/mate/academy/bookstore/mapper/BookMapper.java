@@ -40,4 +40,7 @@ public interface BookMapper {
                 .collect(Collectors.toSet());
         book.setCategories(categories);
     }
+
+    @Mapping(target = "categories", ignore = true)
+    void update(@MappingTarget Book book, CreateBookRequestDto requestDto);
 }
