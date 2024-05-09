@@ -11,8 +11,12 @@ import mate.academy.bookstore.dto.category.CategoryDto;
 import mate.academy.bookstore.dto.category.CategoryRequestDto;
 import mate.academy.bookstore.service.BookService;
 import mate.academy.bookstore.service.CategoryService;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,14 +31,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/categories")
+@Validated
 public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
 
     @GetMapping
     @Operation(summary = "Find all categories", description = "Get a list of all categories")
-    public List<CategoryDto> getAll() {
-        return categoryService.findAll();
+    public List<CategoryDto> getAll(@ParameterObject @PageableDefault Pageable pageable) {
+        return categoryService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

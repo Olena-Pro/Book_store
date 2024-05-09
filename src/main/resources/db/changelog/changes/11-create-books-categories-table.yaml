@@ -32,3 +32,4 @@ databaseChangeLog:
             referencedColumnNames:
               - id
             constraintName: fk_category_id
+
