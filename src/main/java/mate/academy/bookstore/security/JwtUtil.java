@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
-
     private final Key secret;
     @Value("${jwt.expiration}")
     private Long expiration;
@@ -32,12 +31,13 @@ public class JwtUtil {
     }
 
     public boolean isValidToken(String token) {
+        Date today = new Date();
         try {
             Jwts.parserBuilder()
                     .setSigningKey(secret)
                     .build()
                     .parseClaimsJws(token);
-            return !getClaimsFromToken(token, Claims::getExpiration).before(new Date());
+            return ! getClaimsFromToken(token, Claims::getExpiration).before(today);
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("Expired or invalid token");
         }
